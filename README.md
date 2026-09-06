@@ -106,8 +106,10 @@ Designed to account for unusual body orientations and movement patterns caused b
              │ Alerts / Dashboard│
              └─────────────────┘
 ```
+## System Architecture 
+<img width="3456" height="1944" alt="SIH26174_Pastel_Architecture" src="https://github.com/user-attachments/assets/2f12e4b2-11af-46ab-b86e-ce77797b9bed" />
 
-## 🛠️ Technology Stack
+##  🛠️Technology Stack
 
 | Category         | Technologies                        |
 | ---------------- | ----------------------------------- |
