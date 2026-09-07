@@ -1,0 +1,24 @@
+# Local environments and caches
+.venv/
+.env
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Runtime data
+storage/*.db
+storage/clips/*
+storage/logs/*
+storage/raw_videos/*
+!storage/clips/.gitkeep
+!storage/logs/.gitkeep
+!storage/raw_videos/.gitkeep
+
+# Frontend dependencies and build output
+frontend/node_modules/
+frontend/dist/
+
+# Local tooling
+.claude/
+.DS_Store
+Thumbs.db
