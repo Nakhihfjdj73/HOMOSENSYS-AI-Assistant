@@ -168,4 +168,4 @@ Designed to account for unusual body orientations and movement patterns caused b
 
 ## 📄 License
 
-This project is developed as a **Smart India Hackathon 2026** solution and is intended for educational, research, and prototype development purposes.
+This project is developed as a **Smart India Hackathon 2026** solution and is intended for educational, research, and prototype development purposes..
