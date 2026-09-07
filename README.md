@@ -1,171 +1,131 @@
-# 🚀 AI-Based Human Recognition & Activity Detection for Microgravity
+# Smart India Hackathon 2026 — SIH26174
 
-## 📌 Overview
+## BAS Onboard AI Assistant — full-stack MVP
 
-An **edge-deployed AI-powered monitoring system** designed to recognize humans and detect their activities in microgravity environments such as spacecraft and space stations.
+A demo-ready, end-to-end MVP for onboard human-activity recognition and deterministic experiment-sequence monitoring in microgravity environments. The original frontend design from the supplied Project Bolt ZIP is preserved; it now consumes the FastAPI backend instead of static mock data.
 
-The system combines **Human Recognition** and **Human Activity Detection (HAD)** using lightweight computer vision models that can operate locally on **space-hardened edge hardware**, enabling real-time monitoring without depending on continuous cloud connectivity.
+## What is included
 
-## 🎯 Problem Statement
+- **React/Vite/Tailwind operations dashboard** — mission overview, live monitoring, experiments, experiment details, microgravity status, alerts, and audit logs.
+- **FastAPI backend** — REST API, WebSocket live monitoring feed, SQLite-by-default persistence, PostgreSQL-compatible configuration, and automatic demo catalogue seeding.
+- **AI engine** — mock object detection, pose estimation, hand/object tracking, temporal HAR heuristics, deterministic FSM validation, alert routing, and grounded template guidance.
+- **Three demo scenarios** — `nominal`, `low_confidence`, and `violation` to exercise the CORRECT, WARNING, and SEQUENCE_VIOLATION paths.
+- **No hardware or external AI keys required** — DEMO_MODE is enabled by default.
 
-In microgravity environments, continuously monitoring astronauts and their interactions with equipment is challenging due to:
+## Architecture
 
-* Unpredictable body movements caused by microgravity.
-* Difficulty in identifying and tracking human activities.
-* Limited computational resources and communication bandwidth.
-* Need for real-time monitoring with minimal latency.
-* Safety risks associated with incorrect instrument handling or abnormal activities.
-
-## 💡 Proposed Solution
-
-Our solution provides an intelligent edge-based monitoring system that:
-
-* 👤 **Recognizes humans** and tracks their presence within the monitored environment.
-* 🧍 **Detects human activities** such as gestures, posture, movement, and instrument handling.
-* ⚡ Performs **real-time inference locally** on edge hardware.
-* 📡 Reduces dependency on cloud connectivity and minimizes communication latency.
-* 🚨 Generates alerts for predefined abnormal or potentially unsafe activities.
-
-## 🔄 System Workflow
-
-```text
-Camera / Video Input
-        ↓
-Preprocessing
-        ↓
-Human Detection & Recognition
-        ↓
-Pose / Gesture / Object Analysis
-        ↓
-Human Activity Detection
-        ↓
-Activity Classification
-        ↓
-Risk / Event Analysis
-        ↓
-Real-Time Monitoring & Alerts
+```
+Camera/simulator
+  -> object detection + pose + hand/object tracking
+  -> frame buffer + temporal HAR
+  -> deterministic experiment FSM
+  -> validation + persistence + alerts
+  -> grounded guidance + FastAPI WebSocket
+  -> React aerospace operations dashboard
 ```
 
-## 🧠 Key Features
+The FSM is the source of truth for progress and safety validation. The assistant receives only the FSM's structured state packet; user text is used for fixed response routing, not free-form generation.
 
-### 1. Human Recognition
+## Run locally — no Docker required
 
-Detects and identifies astronauts/personnel within the camera feed.
+### 1. Backend
 
-### 2. Human Activity Detection
+From the repository root, create/activate a virtual environment and install dependencies:
 
-Analyzes body posture, gestures, movement patterns, and interactions with objects.
-
-### 3. Instrument Interaction Monitoring
-
-Tracks activities involving important instruments and equipment.
-
-### 4. Edge AI Processing
-
-Runs lightweight AI models directly on edge devices to provide low-latency inference.
-
-### 5. Real-Time Alerts
-
-Identifies predefined abnormal or safety-critical activities and generates alerts.
-
-### 6. Microgravity-Aware Analysis
-
-Designed to account for unusual body orientations and movement patterns caused by microgravity.
-
-## 🏗️ Proposed Architecture
-
-```text
-             ┌─────────────────┐
-             │ Camera / Sensors │
-             └────────┬────────┘
-                      ↓
-             ┌─────────────────┐
-             │ Preprocessing   │
-             └────────┬────────┘
-                      ↓
-          ┌───────────────────────┐
-          │ Human Detection       │
-          │ & Recognition         │
-          └───────────┬───────────┘
-                      ↓
-          ┌───────────────────────┐
-          │ Pose / Gesture /      │
-          │ Object Detection      │
-          └───────────┬───────────┘
-                      ↓
-          ┌───────────────────────┐
-          │ Activity Detection    │
-          │ & Classification      │
-          └───────────┬───────────┘
-                      ↓
-          ┌───────────────────────┐
-          │ Risk / Event Analysis │
-          └───────────┬───────────┘
-                      ↓
-             ┌─────────────────┐
-             │ Alerts / Dashboard│
-             └─────────────────┘
+```bash
+python -m venv .venv
 ```
-## System Architecture 
-<img width="3456" height="1944" alt="SIH26174_Pastel_Architecture" src="https://github.com/user-attachments/assets/2f12e4b2-11af-46ab-b86e-ce77797b9bed" />
 
-##  🛠️Technology Stack
+Windows:
 
-| Category         | Technologies                        |
-| ---------------- | ----------------------------------- |
-| Programming      | Python                              |
-| Computer Vision  | OpenCV                              |
-| AI / ML          | PyTorch / TensorFlow                |
-| Object Detection | YOLO                                |
-| Pose Estimation  | MediaPipe / Lightweight Pose Models |
-| Backend          | Flask / FastAPI                     |
-| Edge Deployment  | NVIDIA Jetson / Edge AI Hardware    |
-| Data Processing  | NumPy, Pandas                       |
-| Visualization    | Web Dashboard                       |
-| Version Control  | Git, GitHub                         |
+```bash
+.venv\Scripts\activate
+```
 
-## ⭐ Innovation & Uniqueness
+macOS/Linux:
 
-* **Multimodal Fusion:** Combines human recognition, pose, gesture, activity, and object interaction information for more reliable monitoring.
-* **Edge-Based Intelligence:** Performs AI inference locally, reducing latency, bandwidth requirements, and dependence on remote servers.
-* **Microgravity-Aware Activity Detection:** Adapts activity analysis to unusual orientations and movement patterns encountered in microgravity.
-* **Safety-Oriented Monitoring:** Can identify potentially abnormal activities and instrument-handling events in real time.
+```bash
+source .venv/bin/activate
+```
 
-## 🌍 Potential Impact
+Install and start the API:
 
-* Improves **astronaut safety** through continuous automated monitoring.
-* Enables **real-time onboard intelligence** without requiring constant cloud connectivity.
-* Reduces workload on ground-control teams.
-* Helps detect abnormal activities and potentially unsafe equipment interactions.
-* Provides a scalable foundation for future **AI-assisted space missions**.
+```bash
+pip install -r backend/requirements.txt
+cd backend
+uvicorn main:app --reload --port 8000
+```
 
-## 📈 Benefits
+The default database is `storage/space_monitoring.db`, created automatically. The API docs are at <http://127.0.0.1:8000/docs>.
 
-* ⚡ Low-latency real-time processing
-* 🔒 Local processing and improved data privacy
-* 📡 Reduced communication bandwidth
-* 🧠 Automated activity monitoring
-* 🚨 Faster detection of abnormal events
-* 🚀 Suitable for future autonomous space missions
+### 2. Frontend
 
-## 🔮 Future Scope
+In a second terminal:
 
-* Integration with multiple onboard cameras and sensors.
-* Advanced temporal activity recognition using video sequences.
-* Multi-person tracking and identification.
-* Integration with spacecraft environmental sensors.
-* Predictive detection of potentially dangerous activities.
-* Deployment on radiation-tolerant and space-qualified computing platforms.
-* Integration with autonomous spacecraft robotic systems.
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-## 👥 Team
+Open <http://localhost:5173>. Vite proxies `/api`, `/health`, and `/ws` to the backend at `http://127.0.0.1:8000`.
 
-**Developed for Smart India Hackathon 2026**
+### 3. Use the demo
 
-**Problem Statement:** `SIH26174`
+1. Open **Live Monitoring**.
+2. Choose **Nominal**, **Low Confidence**, or **Violation**.
+3. Click **START SESSION**.
+4. Watch the simulated camera boxes, FSM progress, guidance, logs, and alerts update live.
+5. Open **Alerts & Events** to acknowledge generated alerts.
 
----
+The nominal scenario completes the seeded `BAS-EXP-001` workflow automatically. Low-confidence and violation scenarios intentionally remain active so their warnings/critical alerts can be inspected; click **STOP SESSION** when finished.
 
-## 📄 License
+## Configuration
 
-This project is developed as a **Smart India Hackathon 2026** solution and is intended for educational, research, and prototype development purposes..
+Copy `.env.example` to `.env` if overrides are needed. Important settings:
+
+| Variable | Default | Purpose |
+|---|---:|---|
+| `DATABASE_URL` | SQLite in `storage/` | Set PostgreSQL URL for deployment |
+| `DEMO_MODE` | `True` | Use deterministic simulated activities |
+| `CONFIDENCE_THRESHOLD` | `0.70` | FSM warning threshold |
+| `FRAME_BUFFER_SIZE` | `16` | Temporal feature window |
+| `INFERENCE_INTERVAL_MS` | `1000` | Demo frame interval |
+| `SECRET_KEY` | development placeholder | Replace before deployment |
+
+## API highlights
+
+- `GET /health`
+- `GET /api/v1/dashboard`
+- `GET /api/v1/experiments`
+- `GET /api/v1/experiments/{id-or-code}`
+- `POST /api/v1/monitoring/start`
+- `POST /api/v1/monitoring/stop/{session_id}`
+- `GET /api/v1/monitoring/activities/current`
+- `GET /api/v1/monitoring/scenarios`
+- `GET /api/v1/alerts`
+- `GET /api/v1/alerts/summary`
+- `POST /api/v1/alerts/{alert_id}/acknowledge`
+- `GET /api/v1/logs`
+- `POST /api/v1/assistant/chat`
+- `GET /api/v1/system/environment`
+- `WS /ws/monitoring`
+
+## Validation completed
+
+- Frontend TypeScript check: `npm run typecheck`
+- Frontend production build: `npm run build`
+- Backend import/compile checks
+- API smoke checks across health, dashboard, experiments, system, alerts, logs, and assistant endpoints
+- FSM assertions covering correct steps and duplicate frame detections
+- End-to-end demo checks for nominal, low-confidence, and violation scenarios
+
+## Deployment files
+
+`backend/Dockerfile`, `frontend/Dockerfile`, `frontend/nginx.conf`, `docker-compose.yml`, and `database/schema.sql` are included for deployment environments, but Docker is not required for local development.
+
+## License
+
+See project documentation for licensing terms.
+
+**Built for SIH26174 — Smart India Hackathon 2026**
