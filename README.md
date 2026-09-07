@@ -87,6 +87,7 @@ The nominal scenario completes the seeded `BAS-EXP-001` workflow automatically. 
 <img width="1919" height="871" alt="Screenshot 2026-09-06 220200" src="https://github.com/user-attachments/assets/6b8e9ec8-4531-497e-b8b0-59c77cb7a109" />
 <img width="1919" height="868" alt="Screenshot 2026-09-06 220316" src="https://github.com/user-attachments/assets/98d21dc3-fca8-4a4a-a0b9-3377f80fb59c" />
 <img width="1919" height="869" alt="Screenshot 2026-09-06 213627" src="https://github.com/user-attachments/assets/367db155-76c4-4215-a6fc-b1bd6727194d" />
+<img width="1919" height="872" alt="Screenshot 2026-09-06 213600" src="https://github.com/user-attachments/assets/79fb4439-ae61-482d-858a-0a5ac9cf1561" />
 
 
 ## Configuration
